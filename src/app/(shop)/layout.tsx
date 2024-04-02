@@ -7,7 +7,6 @@ interface propsI {
 export default function ShopLayout({ children }: propsI ) {
    return (
       <main className="min-h-screen">
-
          <TopMenu /> 
          { children }
       </main>
