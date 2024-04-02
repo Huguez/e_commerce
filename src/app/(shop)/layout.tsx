@@ -1,3 +1,4 @@
+import { TopMenu } from "@/components";
 
 interface propsI { 
    children: React.ReactNode;
@@ -5,7 +6,9 @@ interface propsI {
 
 export default function ShopLayout({ children }: propsI ) {
    return (
-      <main className="min-height-screen  bg-red-500">
+      <main className="min-h-screen">
+
+         <TopMenu /> 
          { children }
       </main>
    );
