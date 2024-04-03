@@ -8,7 +8,7 @@ const products = initialData.products
 export default function Home() {
   return (
     <>
-      <Title title="Men's" subtitle="All products" />
+      <Title title="Store" subtitle="All products" />
 
       <ProductsGrid products={products} />
     </>

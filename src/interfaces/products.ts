@@ -4,16 +4,17 @@ export interface Product {
    images: string[];
    inStock: number;
    price: number;
-   sizes: ValidSizes[];
+   sizes: Size[];
    slug: string;
    tags: string[];
    title: string;
-   type: ValidTypes;
-   gender: 'men'|'women'|'kid'|'unisex'
+   type: ValidType;
+   gender: ValidGender;
 }
 
-export type ValidSizes = 'XS'|'S'|'M'|'L'|'XL'|'XXL'|'XXXL';
-export type ValidTypes = 'shirts'|'pants'|'hoodies'|'hats';
+export type ValidGender = 'men'|'women'|'kid'|'unisex'
+export type Size = 'XS'|'S'|'M'|'L'|'XL'|'XXL'|'XXXL';
+export type ValidType = 'shirts'|'pants'|'hoodies'|'hats';
 
 export interface SeedData {
    products: Product[],
