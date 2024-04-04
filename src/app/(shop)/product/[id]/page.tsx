@@ -1,16 +1,14 @@
-import { QuantitySelector, SizeSelector } from "@/components";
+import { ProductSlideShowMobile, QuantitySelector, SizeSelector } from "@/components";
+import { ProductSlideShow } from "@/components/products/slideShow/ProductSlideShow";
 import { monse } from "@/config/fonts";
 import { initialData } from "@/seed/seed";
 import { notFound } from "next/navigation";
-import { SwiperSlide, Swiper } from "swiper/react";
-import 'swiper/css';
 
 interface propsI {
 	params: {
 		id: string;
 	}
 }
-
 
 export default function productPage( { params }:propsI ) {
 	const { id } = params
@@ -25,18 +23,11 @@ export default function productPage( { params }:propsI ) {
 		<div className="mt-5 mb-20 grid md:grid-cols-3 gap-3">
 
 			<div className="col-span-1 md:col-span-2"> 
-				<Swiper
-					spaceBetween={50}
-					slidesPerView={3}
-					onSlideChange={() => console.log('slide change')}
-					onSwiper={(swiper) => console.log(swiper)}
-				>
-					<SwiperSlide>Slide 1</SwiperSlide>
-					<SwiperSlide>Slide 2</SwiperSlide>
-					<SwiperSlide>Slide 3</SwiperSlide>
-					<SwiperSlide>Slide 4</SwiperSlide>
-					...
-				</Swiper>
+				
+				<ProductSlideShowMobile className="block md:hidden " images={ product.images } title={ product.title } />
+
+				<ProductSlideShow className="hidden md:block" images={ product.images } title={ product.title } />
+
 			</div>
 
 			<div className="col-span-1 px-5 ">
