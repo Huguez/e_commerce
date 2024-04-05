@@ -5,14 +5,9 @@ import { QuantitySelector, Title } from "@/components";
 import { initialData } from "@/seed/seed";
 import { IoBagRemoveOutline } from "react-icons/io5";
 import { BsExclamationCircle } from "react-icons/bs";
+import { Product } from "@/interfaces";
 
-const productosCart = [
-   initialData.products[0],
-   initialData.products[2],
-   initialData.products[3],
-   initialData.products[0],
-   initialData.products[2],
-   initialData.products[3],
+const productosCart: Product[] = [
    initialData.products[0],
    initialData.products[2],
    initialData.products[3],
@@ -20,6 +15,7 @@ const productosCart = [
 
 
 export default function CartPage() {
+
    return (
       <div className="flex justify-center items-center lg:px-5 md:px-2">
          <div className="flex flex-col w-9/12 md:w-full mb-10">
@@ -34,7 +30,7 @@ export default function CartPage() {
                      keep shopping
                   </Link>
                   {
-                     productosCart.map( ( p ) => (
+                     productosCart.map( ( p: Product ) => (
                         <div key={p.slug} className="flex mb-3">
                            <Image 
                               src={`/products/${ p.images[0] }`}
@@ -57,43 +53,41 @@ export default function CartPage() {
                   }
                </div>
                <div>
-               <div className="bg-white rounded-xl shadow-xl p-7 ">
-                  <h2 className="text-2xl font-bold mb-2"> Order Summary </h2>
+                  <div className="bg-white rounded-xl shadow-xl p-7 ">
+                     <h2 className="text-2xl font-bold mb-2"> Order Summary </h2>
 
-                  <div className="grid grid-cols-2">
-                     <span> # Products </span>
-                     <span className="text-right"> 3 items </span>
-                     
-                     <span className="my-6">item</span>
-                     <span className="my-6 text-right">price</span>
+                     <div className="grid grid-cols-2">
+                        <span> # Products </span>
+                        <span className="text-right"> 3 items </span>
+                        
+                        <span className="my-6">item</span>
+                        <span className="my-6 text-right">price</span>
 
-                     <span className="my-6">Shipping</span>
-                     <span className="my-6 text-right">Free</span>
+                        <span className="my-6">Shipping</span>
+                        <span className="my-6 text-right">Free</span>
 
-                     <span> Subtotal </span>
-                     <span className="text-right">$ 100.00 </span>
-                     
+                        <span> Subtotal </span>
+                        <span className="text-right">$ 100.00 </span>
+                        
 
-                     <span className="flex items-center"> sales Tax <BsExclamationCircle className="ml-1" size={15} /> </span>
-                     <span className="text-right">$ 15.00 </span>
-                     
-                     <span className="mt-5 text-2xl"> Total: </span>
-                     <span className="mt-5 text-2xl text-right">$ 115.00 </span>
-                     
-                  </div>
-                  <div className="mt-5 mb-2 w-full">
-                     <Link 
-                        className="flex btn-primary justify-center"
-                        href={"/checkout/address"}
-                     > 
-                        Checkout
-                     </Link>
+                        <span className="flex items-center"> sales Tax <BsExclamationCircle className="ml-1" size={15} /> </span>
+                        <span className="text-right">$ 15.00 </span>
+                        
+                        <span className="mt-5 text-2xl"> Total: </span>
+                        <span className="mt-5 text-2xl text-right">$ 115.00 </span>
+                        
+                     </div>
+                     <div className="mt-5 mb-2 w-full">
+                        <Link 
+                           className="flex btn-primary justify-center"
+                           href={"/checkout/address"}
+                        > 
+                           Checkout
+                        </Link>
+                     </div>
                   </div>
                </div>
-               </div>
-               
             </div>
-
          </div>
       </div>
    );
