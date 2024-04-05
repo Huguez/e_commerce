@@ -11,6 +11,14 @@ const productosCart: Product[] = [
    initialData.products[0],
    initialData.products[2],
    initialData.products[3],
+   initialData.products[2],
+   initialData.products[3],
+   initialData.products[2],
+   initialData.products[3],
+   initialData.products[2],
+   initialData.products[3],
+   initialData.products[2],
+   initialData.products[3],
 ]
 
 
@@ -53,7 +61,7 @@ export default function CartPage() {
                   }
                </div>
                <div>
-                  <div className="bg-white rounded-xl shadow-xl p-7 ">
+                  <div className="bg-white rounded-xl shadow-xl p-7 sticky top-10 ">
                      <h2 className="text-2xl font-bold mb-2"> Order Summary </h2>
 
                      <div className="grid grid-cols-2">
