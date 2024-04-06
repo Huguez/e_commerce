@@ -8,13 +8,18 @@ Steps to launch application in development
 ```
 
 2. Create ```.env``` and add enviroment variables
-```DB_USER
+```
+   DB_USER
    DB_NAME
    DB_PASSWORD
 ```
 
-3. Excecute command ``` npm install ```
+4. Excecute command ``` npm install ```
+
+5. Run prisma migrations ``` npx prisma migrate dev ```
+
+6. Excecute seed ``` npm run seed ```
 
 ## Launch development mode
 
-4.   ``` npm run dev ```
+.Excecute command ``` npm run dev ```
