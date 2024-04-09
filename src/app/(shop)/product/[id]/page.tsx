@@ -1,8 +1,10 @@
-import { ProductSlideShowMobile, QuantitySelector, SizeSelector } from "@/components";
-import { ProductSlideShow } from "@/components/products/slideShow/ProductSlideShow";
-import { monse } from "@/config/fonts";
-import { initialData } from "@/seed/seed";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { ProductSlideShowMobile, QuantitySelector, SizeSelector, ProductSlideShow, StockLabel } from "@/components";
+import { getProductBySlug } from "@/actions";
+import { monse } from "@/config/fonts";
+
+export const relative = 604800
 
 interface propsI {
 	params: {
@@ -10,15 +12,31 @@ interface propsI {
 	}
 }
 
-export default function productPage( { params }:propsI ) {
+export async function generateMetadata( { params }: propsI ): Promise<Metadata> {
+	const { id:slug } = params
+
+	const product = await getProductBySlug( slug )
+
+	return {
+		title: product?.title ?? "Loading...",
+		description: product?.description ??  "Loading...",
+		openGraph: {
+			title: product?.title ?? "Loading...",
+			description: product?.description ??  "Loading...",
+			images: [ ...(product?.images.map( img => `${ "" }/product/${ img}` ) ?? []) ]
+		}
+	}
+}
+
+export default async function productPage( { params }:propsI ) {
 	const { id } = params
 
-	const product = initialData.products.find( p => p.slug === id )
+	const product = await getProductBySlug( id )
 
 	if ( !product ) {
 		notFound()
 	}
-
+	
 	return (
 		<div className="mt-5 mb-20 grid md:grid-cols-3 gap-3">
 
@@ -35,6 +53,9 @@ export default function productPage( { params }:propsI ) {
 				<h1 className={`${ monse.className } antialiased font-bold text-xl`}> 
 					{ product.title } 
 				</h1>
+
+				<StockLabel slug={ product.slug } />
+				
 				
 				<p className="text-lg mb-5" >$ { product.price.toFixed( 2 ) }</p>
 

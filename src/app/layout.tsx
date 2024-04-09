@@ -4,8 +4,11 @@ import "./globals.css";
 
 
 export const metadata: Metadata = {
-  title: "E-Commerce",
-  description: "E-Commerce by Huguez developed with Next.js",
+  title: {
+    template: "%s | E-Commerce",
+    default: "E-Commerce"
+  },
+  description: "E-Commerce by Huguez, developed with Next.js",
 };
 
 interface propsI { 
