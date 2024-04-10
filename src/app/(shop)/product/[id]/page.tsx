@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ProductSlideShowMobile, QuantitySelector, SizeSelector, ProductSlideShow, StockLabel } from "@/components";
+import { ProductSlideShowMobile, ProductSlideShow, StockLabel } from "@/components";
 import { getProductBySlug } from "@/actions";
 import { monse } from "@/config/fonts";
+import { AddToCart } from "./ui/AddToCart";
 
 export const relative = 604800
 
@@ -18,13 +19,20 @@ export async function generateMetadata( { params }: propsI ): Promise<Metadata> 
 	const product = await getProductBySlug( slug )
 
 	return {
+		metadataBase: new URL('http://localhost:3000'),
 		title: product?.title ?? "Loading...",
 		description: product?.description ??  "Loading...",
 		openGraph: {
 			title: product?.title ?? "Loading...",
 			description: product?.description ??  "Loading...",
 			images: [ ...(product?.images.map( img => `${ "" }/product/${ img}` ) ?? []) ]
-		}
+		},
+		twitter: {
+			site: 'huguez',
+			title: 'E-commerce',
+			description: product?.description ??  "Loading...",
+			images: [ ...(product?.images.map( img => `${ "" }/product/${ img}` ) ?? []) ]
+		 }
 	}
 }
 
@@ -59,13 +67,7 @@ export default async function productPage( { params }:propsI ) {
 				
 				<p className="text-lg mb-5" >$ { product.price.toFixed( 2 ) }</p>
 
-				<SizeSelector selectSize={ product.sizes[1] } avialableSizes={ product.sizes } />
-
-				<QuantitySelector selectQty={ 3 } />
-
-				<button className="btn-primary my-5">
-					Agregar al carrito
-				</button>
+				<AddToCart product={ product } />
 
 				<h3 className="font-bold text-sm">Description</h3>
 				<p className="font-light">
