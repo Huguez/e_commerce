@@ -4,7 +4,9 @@ import { persist } from "zustand/middleware";
 
 interface State {
    cart: CartProduct[];
+   taxes: number;
    addProductToCart: ( p: CartProduct ) => void;
+   updateCart: ( p: CartProduct, amount: number ) => void;
    counterProductsCart: ()=>number;
 }
 
@@ -13,6 +15,7 @@ const useCartFunc = create<State>()
 export const useCart = useCartFunc( 
    persist( ( set, get ) => ({
       cart: [],
+      taxes: 0.15,
       addProductToCart: ( p: CartProduct ) => {
          const { cart } = get()
          
@@ -27,6 +30,32 @@ export const useCart = useCartFunc(
          const updateCart = cart.map( product => {
             if ( product.id === p.id ) {
                product.qty = product.qty + p.qty
+            }
+            return product
+         } )
+
+         set({ cart: updateCart })
+      },
+      updateCart: ( p: CartProduct, amount: number ) => {
+         const { cart } = get()
+         const exist = cart.some( item => item.id === p.id && p.size === item.size )
+
+         if ( !exist ) {
+            return;
+         }
+
+         if ( amount === 0 ) {
+            const indexCart = cart.findIndex( item => item.id === p.id && item.size === p.size )
+            const updateCart =  cart.filter( ( _, index: number ) => index !== indexCart )
+            // console.log( cart );
+            // console.log( updateCart );
+            set({ cart: updateCart })
+            return;
+         }
+
+         const updateCart = cart.map( product => {
+            if ( product.id === p.id && product.size === p.size ) {
+               product.qty = amount
             }
             return product
          } )

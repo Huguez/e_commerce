@@ -12,7 +12,6 @@ export const TopMenu = () => {
    const { openSidebar } = useUI( state => state )
 
    const [ loaded, setLoaded ] = useState( false )
-
    
    useLayoutEffect( () => {
       setLoaded( true )
@@ -40,7 +39,7 @@ export const TopMenu = () => {
                <IoSearchOutline className='w-7 h-7' />
             </Link>
 
-            <Link href={"/cart"} className='mx-2'>
+            <Link href={ loaded && totalItem > 0  ? "/cart" : "/empty" } className='mx-2'>
                <div className='relative'>
                   { loaded && totalItem > 0 &&
                      <span className='absolute text-xs text-white rounded-full px-1 fade-in font-bold -top-1 -right-1 bg-red-600'>
@@ -51,7 +50,7 @@ export const TopMenu = () => {
                </div>
             </Link>
 
-            <button className='m-2 p-2 rounded-md transition-all hover:bg-gray-100 ' onClick={ openSidebar }>
+            <button className='m-2 p-2 rounded-md transition-all hover:bg-gray-100' onClick={ openSidebar }>
                Menu
             </button>
          </div>

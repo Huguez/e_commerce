@@ -2,6 +2,7 @@ import { Pagination, ProductsGrid, Title } from "@/components";
 import { redirect } from "next/navigation";
 import { ValidGender } from "@/interfaces";
 import { getPaginationProducts } from "@/actions";
+import { Metadata } from "next";
 
 interface props {
    params: {
@@ -14,6 +15,15 @@ interface props {
 };
 
 export const relative = 43200;
+
+export async function generateMetadata( { params }:props ):Promise<Metadata>{
+   const { id:gender } = params;
+
+   return {
+      title: gender.toUpperCase(),
+      description: `All ${ gender }'s products`,
+   }
+}
 
 export default async function GenderPage( { params, searchParams }:props ) {
    const { id:gender } = params;

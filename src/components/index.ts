@@ -6,6 +6,7 @@ export { Title } from "./ui/title/Title"
 export { SideBar } from "./ui/sidebar/SideBar"
 export { Footer } from "./ui/footer/Footer"
 export { Pagination } from "./ui/pagination/Pagination"
+export { Loading } from "./ui/loading/Loading"
 
 export { StockLabel } from "./products/stockLabel/StockLabel"
 export { ProductsGrid } from "./products/product-grid/ProductsGrid"
