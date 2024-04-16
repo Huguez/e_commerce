@@ -13,7 +13,6 @@ datasource db {
 	url      = env("DATABASE_URL")
 }
 
-
 enum Size {
 	XS
 	S
@@ -29,6 +28,17 @@ enum Gender {
 	women
 	kid
 	unisex
+}
+
+enum Role {
+	customer
+	admin
+}
+
+enum Status {
+	active
+	unverified
+	banned
 }
 
 model Category {
@@ -64,4 +74,15 @@ model ProductImage {
 
 	productId String
 	product   Product @relation( fields: [ productId ], references: [ id ] )
+}
+
+model User {
+	id   String @id @default( uuid() )
+	name String
+	email String @unique
+	emailVerifed DateTime?
+	password String
+	role Role @default( customer )
+	imageProfile String?
+	status Status @default( unverified )
 }

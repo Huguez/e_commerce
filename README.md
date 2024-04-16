@@ -9,9 +9,9 @@ Steps to launch application in development
 
 2. Create ```.env``` and add enviroment variables
 ```
-   DB_USER
-   DB_NAME
-   DB_PASSWORD
+   DB_USER=************
+   DB_NAME=************
+   DB_PASSWORD=************
 ```
 
 4. Excecute command ``` npm install ```
@@ -22,4 +22,4 @@ Steps to launch application in development
 
 ## Launch development mode
 
-.Excecute command ``` npm run dev ```
+7. Excecute command ``` npm run dev ```

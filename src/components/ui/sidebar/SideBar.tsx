@@ -1,13 +1,32 @@
 "use client"
-import { useUI } from "@/store"
-import clsx from "clsx"
-import Link from "next/link"
 
-import { IoCloseOutline, IoLogInOutline, IoLogOutOutline, IoPeopleCircle, IoPersonOutline, IoSearchOutline, IoShirtOutline, IoTicketOutline } from "react-icons/io5"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { useSession } from "next-auth/react"
+import clsx from "clsx"
+import { logout } from "@/actions"
+import { useUI } from "@/store"
+
+import { 
+   IoCloseOutline, IoLogInOutline, IoLogOutOutline, IoPeopleCircle, 
+   IoPersonOutline, IoSearchOutline, IoShirtOutline, IoTicketOutline 
+} from "react-icons/io5"
 
 export const SideBar = () => {
    const { isSidebarShow, closeSidebar } = useUI( state => state )
+   const router = useRouter()
 
+   const session = useSession()
+   
+   const isAuthenticated = !!session.data
+   const isAdmin = isAuthenticated ? session.data.user.role === 'admin' : false
+
+   const handleLogout = () => { 
+      logout(); 
+      closeSidebar()
+      router.replace('/');
+      window.location.replace('/');
+   }
    
    return (
       <div>
@@ -22,6 +41,7 @@ export const SideBar = () => {
             } 
          >
             <IoCloseOutline className="absolute top-5 right-5 cursor-pointer " size={ 30 } onClick={closeSidebar} />
+
             <nav className="relative mt-10 	">
                <IoSearchOutline  size={20} className="absolute top-2 left-2" />
                <input 
@@ -29,42 +49,50 @@ export const SideBar = () => {
                   placeholder="Search" 
                   className="w-full bg-gray-50 rounded pl-10 py-1 pr-10 border-b-2 text-xl border-gray-200 focus:outline-none focus:border-blue-500"
                />
-
-               <Link href={"/"} className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all ">
-                  <IoPersonOutline size={ 30 } />
-                  <span className="ml-3 text-xl "> Perfil </span>
-               </Link>
-
-               <Link href={"/"} className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all ">
-                  <IoTicketOutline size={ 30 } />
-                  <span className="ml-3 text-xl "> orders </span>
-               </Link>
-
-               <Link href={"/"} className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all ">
-                  <IoLogInOutline size={ 30 } />
-                  <span className="ml-3 text-xl "> sign-in </span>
-               </Link>
-
-               <Link href={"/"} className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all ">
-                  <IoLogOutOutline size={ 30 } />
-                  <span className="ml-3 text-xl "> Logout </span>
-               </Link>
-
-               <div className="w-full h-px bg-gray-200 my-5" />
-
+               {
+                  isAuthenticated && 
+                     <Link  href={"/profile"} className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all ">
+                        <IoPersonOutline size={ 30 } />
+                        <span className="ml-3 text-xl "> Profile </span>
+                     </Link>
+               }
+               { 
+                  isAdmin && isAuthenticated && 
+                     <Link href={"/"} className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all ">
+                        <IoTicketOutline size={ 30 } />
+                        <span className="ml-3 text-xl "> orders </span>
+                     </Link>
+               }
+               
                <Link href={"/"} className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all ">
                   <IoShirtOutline size={ 30 } />
                   <span className="ml-3 text-xl "> Products </span>
                </Link>
 
-               <Link href={"/"} className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all ">
-                  <IoPeopleCircle size={ 30 } />
-                  <span className="ml-3 text-xl "> Customers </span>
-               </Link>
+               {
+                  isAdmin && isAuthenticated && <>
+                     <Link href={"/"} className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all ">
+                        <IoPeopleCircle size={ 30 } />
+                        <span className="ml-3 text-xl "> Customers </span>
+                     </Link>
 
+                     <div className="w-full h-px bg-gray-200 my-5" />
+                  </>
+               }
 
+               {
+                  isAuthenticated ? 
+                     <button onClick={ handleLogout } className="w-full flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all ">
+                        <IoLogOutOutline size={ 30 } />
+                        <span className="ml-3 text-xl "> Logout </span>
+                     </button>   
+                  :
+                     <Link href={"/auth/login"} className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all ">
+                        <IoLogInOutline size={ 30 } />
+                        <span className="ml-3 text-xl "> sign-in </span>
+                     </Link>
+               }
             </nav>
-
 
          </div>
 

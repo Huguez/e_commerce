@@ -1,10 +1,12 @@
+
 import { Footer, SideBar, TopMenu } from "@/components";
 
 interface propsI { 
    children: React.ReactNode;
 }
 
-export default function ShopLayout({ children }: propsI ) {
+export default async function ShopLayout({ children }: propsI ) {
+
    return (
       <main className="min-h-screen">
          <TopMenu /> 
