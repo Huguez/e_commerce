@@ -13,10 +13,25 @@ export async function authenticate( prevSate: string | undefined, formData: Form
       return 'success'
 
    } catch ( error ) {
-      if ( ( error as Error ).message.includes( "credentialsSignin" ) ) {
-         return 'credentialsSignin'
+      if ( ( error as any ).type === "CredentialsSignin" ) {
+         return 'CredentialsSignin'
       }
-
+      
       return 'unknow Error'
+   }
+}
+
+export async function login( email:string, password:string ) {
+   try {
+      const resp = await signIn( 'credentials', { email, password } )
+      
+      // console.log( resp );
+      
+   } catch ( error ) {
+      console.log( error );
+      return {
+         ok: false,
+         msg: 'cannot log-in'
+      }
    }
 }

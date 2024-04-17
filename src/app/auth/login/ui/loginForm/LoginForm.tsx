@@ -15,7 +15,7 @@ export const LoginForm = () => {
       if ( state === 'success' ) {
          window.location.replace('/');
       }
-
+      console.log( state );
    }, [state] )
    
    return (
@@ -42,8 +42,8 @@ export const LoginForm = () => {
          />
 
          {
-            state === "credentialsSignin" && 
-               <p className='fade-in text-md text-red-500 flex justify-start items-center pb-2' >
+            state === "CredentialsSignin" && 
+               <p className='fade-in text-md text-red-500 flex justify-cnter items-center pb-2' >
                   <IoInformationCircleOutline  className='h-5 w-5 text-red-500' />
                   Invalid credentials 
                </p>

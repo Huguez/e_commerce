@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 
-export const ProductGridItem = ( { description, images, inStock, price, sizes, slug, tags, title, type, gender }:Product ) => {
+export const ProductGridItem = ( { description, images, inStock, price, sizes, slug, tags, title, gender }:Product ) => {
    
    const [ displayImage, setDisplayImage ] = useState<string>( images[0] )
 
@@ -18,6 +18,7 @@ export const ProductGridItem = ( { description, images, inStock, price, sizes, s
                className='w-full object-cover '
                width={500}
                height={500}
+               priority={true}
                onMouseOver={ () => setDisplayImage( images[1] ) } 
                onMouseLeave={ () => setDisplayImage( images[0] ) }
             />

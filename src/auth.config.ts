@@ -18,10 +18,26 @@ export const authConfig: NextAuthConfig = {
          return token
       },
       session: async ( { session, token, user } ) =>{
-         console.log( { session, token, user } );
+         // console.log( { session, token, user } );
          session.user = token.data as any
          return session
       },
+      // authorized: async ( { auth, request: { nextUrl } } ) => {
+      //    // console.log( auth );
+      //    // console.log( nextUrl );
+      //    // const isLogged = !!auth?.user
+
+      //    // const isOnDashboard = nextUrl.pathname.startsWith( '/' )
+
+      //    // if ( isOnDashboard ) {
+      //    //    if ( isLogged ) return true
+      //    //    return false
+      //    // }else if ( isLogged ) {
+      //    //    return Response.redirect( new URL( '/', nextUrl ) )
+      //    // }
+
+      //    return true
+      // }
    },
    providers: [
       Credentials( {
