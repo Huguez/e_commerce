@@ -4,6 +4,7 @@ import Link from "next/link"
 import { SubmitHandler, useForm } from "react-hook-form";
 import { login, signUpUser } from "@/actions";
 import { useState } from "react";
+import { useFormStatus } from "react-dom";
 
 type FormInputs = {
    name:     string;
@@ -62,9 +63,7 @@ export const RegisterForm = () => {
 
          { msg !== '' && <span className="text-sm text-center text-red-500 px-5 my-2"> { msg } </span> }
 
-         <button className="btn-secondary font-semibold outline-none" type='submit'>
-            Sign-up
-         </button>
+         <RegisterButton label="Sign-up" />
 
          {/* divisor l ine */ }
          <div className="flex items-center my-5">
@@ -80,3 +79,13 @@ export const RegisterForm = () => {
       </form>
    )
 }
+
+function RegisterButton( { label }: { label: string; } ) {
+   const { pending } = useFormStatus();
+
+   return (
+      <button disabled={ pending } className={ `${ !pending ? "btn-primary" : "btn-disabled" } font-semibold ` } type='submit' aria-disabled={pending}>
+         { label }
+      </button>
+   );
+ }

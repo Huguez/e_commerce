@@ -59,6 +59,6 @@ body {
   @apply hover:underline text-blue-600 font-semibold;
 }
 
-.btn-disabed {
-  @apply bg-gray-300 pointer-events-none hover:bg-gray-300 text-gray-400 cursor-not-allowed py-2 px-4 rounded transition-all;
+.btn-disabled {
+  @apply bg-gray-400 pointer-events-none hover:bg-gray-400 text-gray-300 cursor-not-allowed py-2 px-4 rounded transition-all;
 }

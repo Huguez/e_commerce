@@ -79,7 +79,7 @@ export const OrderSummary = () => {
          </div>
          <div className="mt-5 mb-2 w-full">
             <Link 
-               className={`flex ${ cart.length === 0 ? "btn-disabed": "btn-primary" } justify-center`}
+               className={`flex ${ cart.length === 0 ? "btn-disabled": "btn-primary" } justify-center`}
                href={"/checkout/address"}
             > 
                Checkout
