@@ -86,3 +86,9 @@ model User {
 	imageProfile String?
 	status Status @default( unverified )
 }
+
+model Country {
+	id   String @id @default( uuid() )
+	name String
+	code String
+}
