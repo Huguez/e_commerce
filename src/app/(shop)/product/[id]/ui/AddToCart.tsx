@@ -12,7 +12,7 @@ interface propsI {
 export const AddToCart = ( { product  }: propsI ) => {
 
    const [size, setSize] = useState<Size | null>( null )
-   const [ qty, setQty ] = useState<number>( 0 )
+   const [ qty, setQty ] = useState<number>( 1 )
    const [ posted, setPosted ] = useState( false );
 
    const { cart, addProductToCart } = useCart()

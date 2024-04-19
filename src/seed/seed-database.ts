@@ -11,6 +11,10 @@ async function main() {
       await prisma.country.deleteMany({})
       await prisma.userAddress.deleteMany({})
 
+      await prisma.orderItem.deleteMany({})
+      await prisma.orderAddress.deleteMany({})
+      await prisma.order.deleteMany({})
+      
       const { categories, products, users } = initialData
 
       await prisma.user.createMany( { 
