@@ -8,3 +8,7 @@ export { signUpUser } from "./auth/register"
 export { logout } from "./auth/logout"
 
 export { getCountries } from "./countries/getCountries"
+
+export { setUserAddres } from "./address/set-user-address"
+export { deleteUserAddress } from "./address/delete-user-address"
+export { getUserAddress } from "./address/get-user-address"

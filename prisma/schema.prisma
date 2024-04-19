@@ -85,10 +85,31 @@ model User {
 	role Role @default( customer )
 	imageProfile String?
 	status Status @default( unverified )
+
+	address UserAddress?
 }
 
 model Country {
 	id   String @id @default( uuid() )
 	name String
 	code String
+	UserAddress UserAddress[]
+}
+
+model UserAddress {
+	id       String @id @default( uuid() )
+	name     String
+	lastname String
+	address  String
+	addressOptional String?
+	codeZip  String 
+	city     String 
+	phone    String
+
+	// relationship
+	country Country @relation( fields: [ countryId ], references: [id] )
+	countryId String
+
+	userId String @unique
+	user User @relation( fields: [ userId ], references: [id] )
 }

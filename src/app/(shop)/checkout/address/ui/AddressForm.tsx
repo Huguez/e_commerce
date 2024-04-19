@@ -1,10 +1,13 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
-import { countryI } from '@/interfaces';
+import { AddressI, countryI } from '@/interfaces';
 
 import { useAddress } from '@/store';
-import { useEffect } from 'react';
+import { useLayoutEffect, useState } from 'react';
+import { deleteUserAddress, setUserAddres } from '@/actions';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 interface InputsForm {
    name:     string;
@@ -20,24 +23,45 @@ interface InputsForm {
 
 interface propsI { 
    countries: countryI[];
+   userAddressStores?: Partial<AddressI>;
 }
 
 
-export const AddressForm = ( { countries }:propsI ) => {
-   const { handleSubmit, register, formState: { touchedFields,  isValid }, reset }  = useForm<InputsForm>() //leer datos 
-   
-   const { setAddress, address } = useAddress( state => state )
+export const AddressForm = ( { countries, userAddressStores }:propsI ) => {
+   const { handleSubmit, register, formState: {  isValid }, reset, setValue }  = useForm<InputsForm>( { defaultValues: { remember: true } }  ) //leer datos 
+   const [ remember, setRemember ] = useState<boolean>(true)
+   const router = useRouter()
 
-   const onSubmit = ( data:InputsForm ) => {
+
+   const { setAddress, } = useAddress()
+
+   const { data: session } = useSession( { required: true } )
+
+   const onSubmit = async ( data:InputsForm ) => {
       const { remember, ...rest }:InputsForm = data
-      setAddress( rest )
-   }
 
-   useEffect( () => {
-      console.log( address );
-      if ( address.address ) {
-         reset( address )
+      setAddress( rest )
+      
+      if ( session ) {
+         const userId = session.user.id 
+         let resp;
+         if ( remember ) {
+            resp = await setUserAddres( rest, userId )
+         } else {
+            resp = await deleteUserAddress( userId )
+         }
+
+         if ( resp.ok ) {
+            router.push("/checkout")
+         }
+
+      }else {
+         return;
       }
+   }
+   
+   useLayoutEffect( () => {
+      reset( userAddressStores )
    }, [] )
 
 
@@ -124,10 +148,15 @@ export const AddressForm = ( { countries }:propsI ) => {
                >
                   <input
                      type="checkbox"
+                     name=''
                      className="border-gray-500 before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-blue-500 checked:bg-blue-500 checked:before:bg-blue-500 hover:before:opacity-10"
                      id="checkbox"
-                     { ...register("remember", { required: false }) }
-                     checked={ true }
+                     onChange={ ( e ) => {
+                        const { checked } = e.target
+                        setValue( 'remember', checked )
+                        setRemember( checked )
+                     } }
+                     checked={ remember }
                   />
                   <div className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
                      <svg
