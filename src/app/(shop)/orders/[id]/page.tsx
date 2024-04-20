@@ -10,12 +10,6 @@ const productosCart = [
    initialData.products[0],
    initialData.products[2],
    initialData.products[3],
-   initialData.products[0],
-   initialData.products[2],
-   initialData.products[3],
-   initialData.products[0],
-   initialData.products[2],
-   initialData.products[3],
 ]
 
 interface propsI {

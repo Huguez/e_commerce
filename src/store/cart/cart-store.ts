@@ -7,7 +7,8 @@ interface State {
    taxes: number;
    addProductToCart: ( p: CartProduct ) => void;
    updateCart: ( p: CartProduct, amount: number ) => void;
-   counterProductsCart: ()=>number;
+   counterProductsCart: () => number;
+   clearCart : () => void;
 }
 
 const useCartFunc = create<State>()
@@ -68,7 +69,10 @@ export const useCart = useCartFunc(
          const counter = cart.reduce( ( total, item ) =>  total + item.qty  , 0 );
 
          return counter
-      }
+      },
+      clearCart: () => {
+        set( { cart: [] } ) 
+      },
    }) ,{
       name: "shopping-cart"
    } )

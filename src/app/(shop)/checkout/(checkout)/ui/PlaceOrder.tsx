@@ -2,17 +2,21 @@
 
 import { useLayoutEffect, useState } from "react";
 import { BsExclamationCircle } from "react-icons/bs";
+import clsx from "clsx";
+
 import { Loading } from "@/components";
 import { useAddress, useCart } from "@/store";
 import { currencyFormat, } from "@/utils";
-import clsx from "clsx";
 import { placeOrder } from "@/actions";
+import { useRouter } from "next/navigation";
 
 export const PlaceOrder = () => {
-   const [ loading, setLoading ] = useState( true )
-   const [ isPlacingOrder, setIsPlacingOrder ] = useState<boolean>(false)
-
-   const { cart, taxes, counterProductsCart } = useCart( state => state )
+   const [ loading, setLoading ] = useState<boolean>( true )
+   const [ isPlacingOrder, setIsPlacingOrder ] = useState<boolean>( false )
+   const [ error, setError ] = useState<string>( "" )
+   const [ checked, setChecked ] = useState<boolean>( false )
+   const router  = useRouter()
+   const { cart, taxes, counterProductsCart, clearCart } = useCart( state => state )
    const { setAddress:_, ...address }:any = useAddress( state => state )
 
    useLayoutEffect( () => {
@@ -22,17 +26,35 @@ export const PlaceOrder = () => {
    const onPlaceOrder = async () => {
       setIsPlacingOrder( true )
       
+      if ( !checked ) {
+         setError( "You have to accept terms and conditions" )
+         setIsPlacingOrder( false )
+      }
+      
       const productToOrder = cart.map( ( { id, size, qty } ) => ({
          productId: id,
          size,
          quantity: qty,
       }) )
       
-      const resp = await placeOrder( productToOrder, address )
-      
-      console.log( resp );
+      const { remember:_, userId:__ , ...restAddress } = address
 
+      const resp = await placeOrder( productToOrder, restAddress )
+      
+      if ( !resp.ok ) {
+         console.log( resp.msg );
+         setIsPlacingOrder( false )
+         setError( resp.msg ?? "Error" )
+         return;
+      }
+
+      setError( "" )
+      clearCart()
       setIsPlacingOrder( false )
+
+      setTimeout( () => {
+         router.replace(`/orders/${resp.order.id}`)
+      }, 300 )
    }
 
    if ( loading ) {
@@ -52,6 +74,16 @@ export const PlaceOrder = () => {
       
       return !flagTaxes ? acum : acum * (1+taxes) ;
    }
+
+   const handleChecked = ( e:any ) => {
+      const { checked } = e.target
+
+      if ( checked ) {
+         setError( "" )
+      }
+
+      setChecked( e.target.checked )
+   } 
 
    return (
       <div className="bg-white rounded-xl shadow-xl p-7 sticky top-10 ">
@@ -92,13 +124,18 @@ export const PlaceOrder = () => {
          <div className="mt-5 mb-2 w-full">
 
             <div className="flex items-center mb-5">
-               <input type="checkbox"   />
+               <input type="checkbox" onChange={ handleChecked }  checked={ checked }  />
                <p className="ml-1   text-xs">
-                  Accept <span className="underline"> terms and conditions </span> y <span className="underline"> privacy policy </span>
+                  Accept <span className="underline"> terms and conditions </span> and <span className="underline"> privacy policy </span>
                </p>
             </div>
 
-            {/* <p className="text-red-500"> Error </p> */}
+            {
+               error !== "" && <p className="w-full text-center text-red-600 pb-5"> 
+                  { error }
+               </p>
+            }
+            
             <button
                onClick={ onPlaceOrder }
                className={`${
