@@ -22,14 +22,7 @@ export const getOrderList = async ( page: number = 1, take: number = 12 ): Promi
 
       if ( !userId ) {
          throw new Error("Error - user unauthenticated")
-      }  
-
-      let borrados = await prisma.order.findMany( {
-         include: {
-            OrderAddress: true,
-            OrderItems: true
-         }
-      } )
+      }
       
       const orderlist = await prisma.order.findMany({
          take,
