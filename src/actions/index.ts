@@ -15,3 +15,4 @@ export { getUserAddress } from "./address/get-user-address"
 
 export { placeOrder } from "./order/placeOrder"
 export { getOrderById } from "./order/getOrderById"
+export { getOrderList } from "./order/getOrderList"

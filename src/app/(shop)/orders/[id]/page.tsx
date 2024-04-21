@@ -36,6 +36,8 @@ export default async function OrderIdPage( { params }: propsI ) {
 		notFound()
 	}
 
+	console.log( order );
+
    return (
 		<div className="flex justify-center items-center lg:px-5 md:px-2">
 			<div className="flex flex-col w-9/12 md:w-full mb-10">
