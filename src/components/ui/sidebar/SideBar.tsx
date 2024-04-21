@@ -19,7 +19,7 @@ export const SideBar = () => {
    const session = useSession()
    
    const isAuthenticated = !!session.data
-   const isAdmin = isAuthenticated ? session.data.user.role === 'admin' : false
+   const isAdmin = isAuthenticated && session.data.user.role === 'admin'
 
    const handleLogout = () => { 
       logout(); 
@@ -57,8 +57,8 @@ export const SideBar = () => {
                      </Link>
                }
                { 
-                  isAdmin && isAuthenticated && 
-                     <Link href={"/"} className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all ">
+                  isAuthenticated && 
+                     <Link href={"/orders"} onClick={ () => closeSidebar() } className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all ">
                         <IoTicketOutline size={ 30 } />
                         <span className="ml-3 text-xl "> orders </span>
                      </Link>

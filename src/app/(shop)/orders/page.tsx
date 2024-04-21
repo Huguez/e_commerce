@@ -3,74 +3,75 @@ import { Title } from '@/components';
 import Link from 'next/link';
 import { IoCardOutline } from 'react-icons/io5';
 
-export default function() {
-  return (
-    <>
-      <Title title="Orders" />
+export default async function OrdersPage() {
 
-      <div className="mb-10 mt-5">
-        <table className="min-w-full">
-          <thead className="bg-gray-200 border-b">
-            <tr>
-              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                #ID
-              </th>
-              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Nombre completo
-              </th>
-              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Estado
-              </th>
-              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Opciones
-              </th>
-            </tr>
-          </thead>
-          <tbody>
+	return (
+		<>
+			<Title title="Orders" />
 
-            <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+			<div className="mb-10 mt-5">
+				<table className="min-w-full">
+					<thead className="bg-gray-200 border-b">
+						<tr>
+							<th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+								#ID
+							</th>
+							<th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+								Nombre completo
+							</th>
+							<th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+								Estado
+							</th>
+							<th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+								Opciones
+							</th>
+						</tr>
+					</thead>
+					<tbody>
 
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                Mark
-              </td>
-              <td className="flex items-center text-sm  text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+					<tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
 
-                <IoCardOutline className="text-green-800" />
-                <span className='mx-2 text-green-800'>Paid</span>
+						<td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
+						<td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+							Mark
+						</td>
+						<td className="flex items-center text-sm  text-gray-900 font-light px-6 py-4 whitespace-nowrap">
 
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 ">
-                <Link href="/orders/123" className="hover:underline">
-                  See order
-                </Link>
-              </td>
+							<IoCardOutline className="text-green-800" />
+							<span className='mx-2 text-green-800'>Paid</span>
 
-            </tr>
+						</td>
+						<td className="text-sm text-gray-900 font-light px-6 ">
+							<Link href="/orders/123" className="hover:underline">
+							See order
+							</Link>
+						</td>
 
-            <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+					</tr>
 
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                Mark
-              </td>
-              <td className="flex items-center text-sm  text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+					<tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
 
-                <IoCardOutline className="text-red-800" />
-                <span className='mx-2 text-red-800'>awaiting for pay</span>
+						<td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
+						<td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+							Mark
+						</td>
+						<td className="flex items-center text-sm  text-gray-900 font-light px-6 py-4 whitespace-nowrap">
 
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 ">
-                <Link href="/orders/123" className="hover:underline">
-                  See order
-                </Link>
-              </td>
+							<IoCardOutline className="text-red-800" />
+							<span className='mx-2 text-red-800'>awaiting for pay</span>
 
-            </tr>
+						</td>
+						<td className="text-sm text-gray-900 font-light px-6 ">
+							<Link href="/orders/123" className="hover:underline">
+							See order
+							</Link>
+						</td>
 
-          </tbody>
-        </table>
-      </div>
-    </>
-  );
+					</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</>
+	);
 }
