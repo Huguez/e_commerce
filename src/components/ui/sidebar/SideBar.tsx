@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
 import clsx from "clsx"
 import { logout } from "@/actions"
@@ -12,9 +11,9 @@ import {
    IoPersonOutline, IoSearchOutline, IoShirtOutline, IoTicketOutline 
 } from "react-icons/io5"
 
+
 export const SideBar = () => {
    const { isSidebarShow, closeSidebar } = useUI( state => state )
-   const router = useRouter()
 
    const session = useSession()
    
@@ -22,10 +21,11 @@ export const SideBar = () => {
    const isAdmin = isAuthenticated && session.data.user.role === 'admin'
 
    const handleLogout = () => { 
-      logout(); 
-      closeSidebar()
-      router.replace('/');
-      window.location.replace('/');
+      logout();
+
+      setTimeout( () => {
+         window.location.replace('/auth/login');
+      }, 1000 )
    }
    
    return (
