@@ -8,11 +8,12 @@ import { IoCartOutline, IoPhonePortraitOutline } from "react-icons/io5";
 
 import clsx from "clsx";
 
-import { Title } from "@/components";
+import { OrdersStatus, Title } from "@/components";
 import { getOrderById } from "@/actions";
-import { notFound, redirect } from "next/navigation";
+import { notFound, } from "next/navigation";
 import { currencyFormat } from "@/utils";
 import type { Metadata } from "next";
+import { PayPalButton } from "./ui";
 
 interface propsI {
 	params: {
@@ -32,11 +33,9 @@ export default async function OrderIdPage( { params }: propsI ) {
 	const { order, productsInOrder } = await getOrderById( id )
 	
 	if ( !order ) {
-		// redirect("/")
 		notFound()
 	}
-
-	console.log( order );
+	
 
    return (
 		<div className="flex justify-center items-center lg:px-5 md:px-2">
@@ -48,7 +47,7 @@ export default async function OrderIdPage( { params }: propsI ) {
 					
 					<div className="flex flex-col ">
 
-						<div className={ clsx( "flex items-center rounded-lg py-2 px-3.5 text-sm font-bold text-white mb-5",
+						{/* <div className={ clsx( "flex items-center rounded-lg py-2 px-3.5 text-sm font-bold text-white mb-5",
 							{
 								"bg-red-500" : !order.isPaid,
 								"bg-green-600" : order.isPaid
@@ -58,6 +57,8 @@ export default async function OrderIdPage( { params }: propsI ) {
 							<p className="mx-2"> { order.isPaid ?  "Order paid" : "Outstanding for pay" } </p>
 							
 						</div>
+						 */}
+						<OrdersStatus isPaid={ order.isPaid ?? false } />
 
 						{
 							productsInOrder.map( ( p: any, index: number ) => (
@@ -117,15 +118,10 @@ export default async function OrderIdPage( { params }: propsI ) {
 								
 							</div>
 							<div className="mt-5  w-full">
-								<div className={ clsx( "flex items-center justify-center rounded-lg py-2 px-3.5 text-sm font-bold text-white mb-5",
-									{
-										"bg-red-500" : !order.isPaid,
-										"bg-green-600" : order.isPaid
-									}
-								) }>
-									<IoCartOutline size={ 30 } />
-									<p className="mx-2"> { order.isPaid ?  "order paid" : "outstanding for pay" }</p>
-								</div>
+								{ order.isPaid ? 
+									<OrdersStatus isPaid={ order.isPaid ?? false } /> : 
+									<PayPalButton amount={ order.total } orderId={ order.id }  /> 
+								}
 							</div>
 						</div>
 					</div>
