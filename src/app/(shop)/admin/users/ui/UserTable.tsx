@@ -1,11 +1,12 @@
 'use client'
 
-import { Loading, Pagination } from '@/components';
-import { UserI } from '@/interfaces';
-import Link from 'next/link';
-
 import React, { useLayoutEffect, useState } from 'react'
+import Link from 'next/link';
 import { FaBan, FaCheck, FaTimes } from 'react-icons/fa';
+
+import { updateUserRole, updateUserStatus } from '@/actions';
+import { Loading, Pagination } from '@/components';
+import { Role, Status, UserI } from '@/interfaces';
 
 interface ProsI {
 	userList: UserI[];
@@ -21,6 +22,16 @@ export const UserTable = ( { userList, totalPages, acum }: ProsI ) => {
       setLoading( false )
 		setUrl( window.location.pathname )
    }, [] )
+
+	const handleRole = async ( id: string, role: string ) => {
+
+		const { ok } = await updateUserRole( id, role as Role )
+
+	}
+
+	const handleStatus = async ( id: string, status: string ) => {
+		const { ok } = await updateUserStatus( id, status as Status )
+	}
 
    if ( loading ) {
       return <div className="fle mb-10 mt-5  overflow-hidden">
@@ -74,15 +85,21 @@ export const UserTable = ( { userList, totalPages, acum }: ProsI ) => {
 								</td>
 								
 								<td className="flex items-center text-sm  text-gray-900 font-semibold px-6 py-4 whitespace-nowrap capitalize">
-									{ user.status }
+
+									<select className='text-sm p-2 text-gray-600 rounded ' value={ user.status } onChange={ ( e ) => handleStatus( user.id, e.target.value ) }>
+										<option value={'active'}>Verified/Active</option>
+										<option value={'unverified'}>Unverified</option>
+										<option value={'banned'}>Banned</option>
+									</select>
+
 									{ user.status.toString() === 'unverified' && <FaTimes className='text-yellow-600 ml-1 ' /> }
-									{ user.status.toString() === 'verified' && <FaCheck className='text-green-600 ml-1 ' /> }
+									{ user.status.toString() === 'active' && <FaCheck className='text-green-600 ml-1 ' /> }
 									{ user.status.toString() === 'banned' && <FaBan className='text-red-600 ml-1 ' /> }
 									
 								</td>
 								
 								<td className="text-sm text-gray-900 font-semibold ">
-									<select className='text-sm p-2 text-gray-600 rounded ' value={ user.role } onChange={ (e) => console.log( "e" )}>
+									<select className='text-sm p-2 text-gray-600 rounded ' value={ user.role } onChange={ ( e ) => handleRole( user.id, e.target.value ) }>
 										<option value={'customer'}>Customer</option>
 										<option value={'admin'}>Admin</option>
 									</select>

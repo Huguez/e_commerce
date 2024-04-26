@@ -1,18 +1,18 @@
 'use server'
 
 import { auth } from "@/auth.config";
-import { Role, UserI } from "@/interfaces";
+import { Status, UserI } from "@/interfaces";
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
 
-interface updateUserRoleReturn {
+interface updateUserStatusReturn {
    ok: boolean;
-   msg?: string;
    userUpdate?: UserI;
+   msg?: string;
 }
 
-export const updateUserRole = async ( userId: string, newRole: Role ): Promise<updateUserRoleReturn> => {
+export const updateUserStatus = async ( userId:string, status: Status ):Promise<updateUserStatusReturn> => {
    try {
       const session  = await auth()
 
@@ -26,28 +26,22 @@ export const updateUserRole = async ( userId: string, newRole: Role ): Promise<u
       const userUpdate = await prisma.user.update( {
          where: { id: userId },
          data: {
-            role: newRole
+            status: status
          }
       } )
 
-      if ( !userUpdate ) {
-         return {
-            ok: false,
-            msg: `user with id ${ userId } not exist`,
-         }
-      }
-
-      revalidatePath( "/admin/users" )
+      revalidatePath("/admin/users/")
 
       return {
          ok: true,
          userUpdate: userUpdate as UserI,
       }
+
    } catch (error) {
       console.log( error );
       return {
          ok: false,
-         msg: "Error - updateUserRole"
+         msg: "Error - updateUserStatus"
       }
    }
 }
