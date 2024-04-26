@@ -68,7 +68,6 @@ export const PlaceOrder = () => {
       let acum = 0;
 
       cart.forEach( ( item ) => {
-         console.log(  );
          acum += item.qty * item.price
       } )
       

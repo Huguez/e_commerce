@@ -15,9 +15,11 @@ interface ProsI {
 export const TableOrders = ( { totalPages, acum, orderlist }:ProsI ) => {
 
    const [ loading, setLoading ] = useState<boolean>( true )
-   
+   const [ url, setUrl ] = useState<string>( "" )
+
    useLayoutEffect( () => {
       setLoading( false )
+		setUrl( window.location.pathname )
    }, [] )
 
    if ( loading ) {
@@ -81,7 +83,7 @@ export const TableOrders = ( { totalPages, acum, orderlist }:ProsI ) => {
 				</table>
          </div>
          
-         <Pagination totalPages={ totalPages } url={ "/orders/" } />
+         <Pagination totalPages={ totalPages } url={ url.includes( "/admi" ) ? "/admin/orders/" : "/orders/" } />
       </>
    )
 }

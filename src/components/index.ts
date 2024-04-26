@@ -17,5 +17,6 @@ export { ProductSlideShow } from "./products/slideShow/ProductSlideShow"
 export { ProductSlideShowMobile } from "./products/slideShow/ProductSlideShowMobile"
 
 export { OrdersStatus } from "./orders/ordersStatus"
+export { TableOrders } from "./orders/TableOrder"
 
 export { Providers } from "./providers/Providers"

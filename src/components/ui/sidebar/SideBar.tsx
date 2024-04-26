@@ -58,9 +58,9 @@ export const SideBar = () => {
                }
                { 
                   isAuthenticated && 
-                     <Link href={"/orders"} onClick={ () => closeSidebar() } className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all ">
+                     <Link href={ isAdmin ? "/admin/orders" : "/orders" } onClick={ () => closeSidebar() } className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all ">
                         <IoTicketOutline size={ 30 } />
-                        <span className="ml-3 text-xl "> My orders </span>
+                        <span className="ml-3 text-xl "> { isAdmin ? "Customer's Orders" : "My orders" }  </span>
                      </Link>
                }
                
@@ -73,7 +73,7 @@ export const SideBar = () => {
                   isAdmin && isAuthenticated && <>
                      <Link href={"/"} className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all ">
                         <IoPeopleCircle size={ 30 } />
-                        <span className="ml-3 text-xl "> Customers </span>
+                        <span className="ml-3 text-xl "> Users </span>
                      </Link>
 
                      <div className="w-full h-px bg-gray-200 my-5" />

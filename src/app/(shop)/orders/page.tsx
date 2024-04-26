@@ -1,9 +1,8 @@
-import { getOrderList } from '@/actions';
+import { getOrderByUserIdList } from '@/actions';
 
-import { Pagination, Title } from '@/components';
+import { Title, TableOrders} from '@/components';
 import type { Metadata } from 'next';
 
-import { TableOrders } from './ui';
 
 interface propsOrders{
 	searchParams: {
@@ -24,11 +23,11 @@ export default async function OrdersPage( { searchParams }:propsOrders ) {
 	const page = searchParams.page ?? 1
 	const take = searchParams.take ?? 6
 	
-	const { totalPages, orderlist } = await getOrderList( page, take )
+	const { totalPages, orderlist } = await getOrderByUserIdList( page, take )
 
 	return (
 		<>
-			<Title title="Orders list" />
+			<Title title="My Orders list" />
 
 			<TableOrders totalPages={ totalPages } orderlist={ orderlist } acum={ (page-1)*take } />			
 		</>

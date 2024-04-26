@@ -10,7 +10,7 @@ interface getOrderListReturn {
    msg?: string;
 }
 
-export const getOrderList = async ( page: number = 1, take: number = 12 ): Promise<getOrderListReturn> => {
+export const getOrderByUserIdList = async ( page: number = 1, take: number = 12 ): Promise<getOrderListReturn> => {
    try {
 
       if ( isNaN( Number( page ) ) || page < 1 ) page = 1;

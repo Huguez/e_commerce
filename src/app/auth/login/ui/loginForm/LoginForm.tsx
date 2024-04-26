@@ -15,7 +15,6 @@ export const LoginForm = () => {
       if ( state === 'success' ) {
          window.location.replace('/');
       }
-      console.log( state );
    }, [state] )
    
    return (

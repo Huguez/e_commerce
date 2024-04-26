@@ -42,7 +42,7 @@ export const getOrderById = async ( orderId: string ): Promise<getOrderByIdRetur
 
       const session = await auth()
       
-      if ( session?.user.id !== order.userId ) {
+      if ( session?.user.id !== order.userId && session?.user.role !== 'admin' ) {
          throw new Error(`Error - order: ${ order.id } doesn't belong to user: ${ session?.user.id }` )
       }
 
