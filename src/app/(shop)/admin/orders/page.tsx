@@ -1,5 +1,6 @@
 import { getPaginatedOrders } from "@/actions";
 import { TableOrders, Title } from "@/components";
+import type { Metadata } from "next";
 
 interface propsOrders{
 	searchParams: {
@@ -7,6 +8,12 @@ interface propsOrders{
 		take: number;
 	}
 }
+
+export const metadata: Metadata = {
+	title: "Customers Orders",
+	description: "E-Commerce by Huguez, developed with Next.js",
+};
+
 
 export default async function OrdersAdminPage( { searchParams }:propsOrders ) {
    

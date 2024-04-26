@@ -20,3 +20,5 @@ export { getPaginatedOrders } from "./order/getPaginatedOrders"
 
 export { setTransactionId } from "./payments/setTransactionId"
 export { paypalCheckPayment } from  "./payments/paypalCheckPayment"
+
+export { getPaginatedUsers } from "./user/getPaginatedUsers"
