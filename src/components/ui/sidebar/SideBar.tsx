@@ -51,7 +51,7 @@ export const SideBar = () => {
                />
                {
                   isAuthenticated && 
-                     <Link  href={"/profile"} className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all ">
+                     <Link onClick={ () => closeSidebar() }  href={"/profile"} className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all ">
                         <IoPersonOutline size={ 30 } />
                         <span className="ml-3 text-xl "> Profile </span>
                      </Link>
@@ -64,14 +64,14 @@ export const SideBar = () => {
                      </Link>
                }
                
-               <Link href={"/"} className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all ">
+               <Link onClick={ () => closeSidebar() } href={ isAdmin ? "/admin/products/" : "/" } className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all ">
                   <IoShirtOutline size={ 30 } />
                   <span className="ml-3 text-xl "> Products </span>
                </Link>
 
                {
                   isAdmin && isAuthenticated && <>
-                     <Link href={"/admin/users"} className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all ">
+                     <Link onClick={ () => closeSidebar() } href={"/admin/users"} className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all ">
                         <IoPeopleCircle size={ 30 } />
                         <span className="ml-3 text-xl "> Users </span>
                      </Link>
@@ -82,7 +82,7 @@ export const SideBar = () => {
 
                {
                   isAuthenticated ? 
-                     <button onClick={ handleLogout } className="w-full flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all ">
+                     <button  onClick={ handleLogout } className="w-full flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all ">
                         <IoLogOutOutline size={ 30 } />
                         <span className="ml-3 text-xl "> Logout </span>
                      </button>   
