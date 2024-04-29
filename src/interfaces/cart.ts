@@ -1,4 +1,5 @@
 import { Size } from "@/interfaces";
+import { ProductImage } from "./products";
 
 export interface CartProduct {
    id: string;
@@ -7,5 +8,5 @@ export interface CartProduct {
    price: number;
    qty: number;
    size: Size;
-   image: string;
+   image: string | ProductImage;
 }

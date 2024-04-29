@@ -25,13 +25,13 @@ export async function generateMetadata( { params }: propsI ): Promise<Metadata> 
 		openGraph: {
 			title: product?.title ?? "Loading...",
 			description: product?.description ??  "Loading...",
-			images: [ ...(product?.images.map( img => `${ "" }/product/${ img}` ) ?? []) ]
+			images: [ ...(product?.images.map( img => `${ "" }/products/${ img.url }` ) ?? []) ]
 		},
 		twitter: {
 			site: 'huguez',
 			title: 'E-commerce',
 			description: product?.description ??  "Loading...",
-			images: [ ...(product?.images.map( img => `${ "" }/product/${ img}` ) ?? []) ]
+			images: [ ...(product?.images.map( img => `${ "" }/products/${ img.url }` ) ?? []) ]
 		 }
 	}
 }
@@ -50,9 +50,9 @@ export default async function productPage( { params }:propsI ) {
 
 			<div className="col-span-1 md:col-span-2"> 
 				
-				<ProductSlideShowMobile className="block md:hidden " images={ product.images } title={ product.title } />
+				<ProductSlideShowMobile className="block md:hidden " images={ product.images.map( img => img.url ) } title={ product.title } />
 
-				<ProductSlideShow className="hidden md:block" images={ product.images } title={ product.title } />
+				<ProductSlideShow className="hidden md:block" images={ product.images.map( img => img.url ) } title={ product.title } />
 
 			</div>
 

@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { getProductBySlug } from "@/actions";
+import { getAllCategories, getProductBySlug } from "@/actions";
 import { Title } from "@/components";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { ProductForm } from "./ui";
-import { Product } from "@/interfaces";
 
 interface PropsI {
    params: {
@@ -25,20 +24,20 @@ export async function generateMetadata(  { params }: PropsI ): Promise<Metadata>
 export default async function ProductBySlugPage( { params }:PropsI ) {
    const { id: slug } = params;
 
-   const product = await getProductBySlug( slug )
+   const [ product, { categories } ] = await Promise.all( [ getProductBySlug( slug ), getAllCategories() ] )
 
-   if( !product  && slug !== 'new' ){
-      redirect("/admin/products")
-      // notFound()
+   if( !product && slug !== 'new' ){
+      notFound()
    }
    
    const title = slug ===  "new" ? "New Product" : "Edit Product"
 
+   
    return (
       <>
          <Title title={title} />
          
-         <ProductForm product={ product } />
+         <ProductForm product={ product ?? {} } categories={categories} />
       </>
    );
 }

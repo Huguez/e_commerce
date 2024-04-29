@@ -71,6 +71,7 @@ model Product {
 
 model ProductImage {
 	id        Int  @id @default( autoincrement() )
+	// id        String  @id @default( uuid() )
 	url       String
 
 	productId String

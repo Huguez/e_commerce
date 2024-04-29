@@ -1,4 +1,6 @@
 
+export { deleteImagesProduct } from "./product/deleteImagesProduct"
+export { createOrUpdateProduct } from "./product/updateProduct"
 export { getPaginationProducts } from "./product/product-paginations"
 export { getProductBySlug } from "./product/getProductBySlug"
 export { getStockBySlug } from "./product/getStockBySlug"
@@ -25,4 +27,4 @@ export { getPaginatedUsers } from "./user/getPaginatedUsers"
 export { updateUserRole } from "./user/updateUserRole"
 export { updateUserStatus } from "./user/updateUserStatus"
 
-
+export { getAllCategories } from "./category/getAllCategories"

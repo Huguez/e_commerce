@@ -1,7 +1,9 @@
 'use server'
+
+import { Product } from "@/interfaces";
 import prisma from "@/lib/prisma";
 
-export const getProductBySlug = async ( slug: string ) => {
+export const getProductBySlug = async ( slug: string ) : Promise<Product | null> => {
    try {
       const product = await prisma.product.findFirst( {
          where: {
@@ -10,7 +12,8 @@ export const getProductBySlug = async ( slug: string ) => {
          include: {
             images: {
                select: {
-                  url: true
+                  url: true,
+                  id: true
                }
             }
          }
@@ -22,11 +25,11 @@ export const getProductBySlug = async ( slug: string ) => {
 
       return {
          ...product,
-         images: product.images.map( img => img.url )
+         images: product.images.map( img => ({url: img.url, id: `${ img.id }`  }) )
       }
 
    } catch (error) {
       console.log( error );
-      throw Error( "getProductBySlug" )
+      return null
    }
 }

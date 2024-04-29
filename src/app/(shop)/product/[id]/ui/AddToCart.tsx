@@ -15,7 +15,7 @@ export const AddToCart = ( { product  }: propsI ) => {
    const [ qty, setQty ] = useState<number>( 1 )
    const [ posted, setPosted ] = useState( false );
 
-   const { cart, addProductToCart } = useCart()
+   const { addProductToCart } = useCart()
 
    const MAX = 9;
 
@@ -32,7 +32,7 @@ export const AddToCart = ( { product  }: propsI ) => {
          price: product.price,
          qty,
          size,
-         image: product.images[0],
+         image: product.images[0].url,
       }
 
       addProductToCart( cartProduct )

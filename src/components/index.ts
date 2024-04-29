@@ -15,6 +15,7 @@ export { SizeSelector } from "./products/sizeSelector/SizeSelector"
 export { QuantitySelector } from "./products/quantitySelector/QuantitySelector"
 export { ProductSlideShow } from "./products/slideShow/ProductSlideShow"
 export { ProductSlideShowMobile } from "./products/slideShow/ProductSlideShowMobile"
+export { ProductImage } from "./products/productImage/ProductImage"
 
 export { OrdersStatus } from "./orders/ordersStatus"
 export { TableOrders } from "./orders/TableOrder"

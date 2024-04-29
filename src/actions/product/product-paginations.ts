@@ -1,13 +1,13 @@
 'use server'
 
-import { ValidGender } from "@/interfaces";
+import { Gender } from "@/interfaces";
 import prisma from "@/lib/prisma"
 
 
 interface propsI{
 	page?:number;
 	take?:number
-   gender?: ValidGender;
+   gender?: Gender;
 }
 
 
@@ -48,7 +48,8 @@ export const getPaginationProducts = async ( { page=1, take = 12, gender }: prop
             images: {
                take: 2,
                select: {
-                  url: true
+                  url: true,
+                  id: true
                }
             }
          }
@@ -61,7 +62,7 @@ export const getPaginationProducts = async ( { page=1, take = 12, gender }: prop
          totalPages: Math.ceil( totalCount / take ),
          products: products.map( product => ({
             ...product,
-            images: product.images.map( img => img.url )
+            images: product.images.map( img => ({url: img.url, id: `${ img.id }`  }) )
          }) )
       };
 

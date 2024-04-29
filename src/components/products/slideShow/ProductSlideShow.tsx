@@ -1,9 +1,10 @@
 "use client"
+
 import Image from "next/image"
 import React, { useState } from "react";
 
 import { SwiperSlide, Swiper } from "swiper/react";
-import { FreeMode, Navigation, Pagination, Thumbs, Zoom } from 'swiper/modules';
+import { FreeMode, Navigation, Thumbs, Zoom } from 'swiper/modules';
 
 import 'swiper/css';
 import 'swiper/css/free-mode';
@@ -13,6 +14,7 @@ import 'swiper/css/zoom';
 
 
 import "./ProductSliceShow.css"
+import { ProductImage } from "@/components";
 
 interface propsI {
    images: string[];
@@ -27,7 +29,6 @@ export const ProductSlideShow = ( { images, className = "" }:propsI ) => {
    return (
       <>
          <div className={ `relative  ${ className }` }>
-            {/* <IoSearch  className="text-blue-600 absolute top-3 right-3 z-10 cursor-pointer " size={25} onClick={ hanldeZoom } /> */}
             <Swiper
                style={{
                   '--swiper-pagination-color': '#2563eb',
@@ -43,8 +44,8 @@ export const ProductSlideShow = ( { images, className = "" }:propsI ) => {
                   images.map( ( i, index ) => (
                      <SwiperSlide key={index}  >
                         <div className="rounded-lg swiper-zoom-container" >
-                           <Image 
-                              src={ `/products/${ i }` }
+                           <ProductImage 
+                              src={ i }
                               alt={ `/products/${ i }` }
                               width={ 1024 }
                               height={ 800 }
@@ -66,8 +67,8 @@ export const ProductSlideShow = ( { images, className = "" }:propsI ) => {
                {
                   images.map( ( i, index ) => (
                      <SwiperSlide key={index} >
-                        <Image 
-                           src={ `/products/${ i }` }
+                        <ProductImage 
+                           src={ i }
                            alt={ `/products/${ i }` }
                            width={ 300 }
                            height={ 300 }

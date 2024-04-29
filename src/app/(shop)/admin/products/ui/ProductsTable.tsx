@@ -1,10 +1,9 @@
 'use client'
 
 import React from 'react'
-import { Pagination } from '@/components';
+import { Pagination, ProductImage } from '@/components';
 import { Product } from '@/interfaces';
 import Link from 'next/link';
-import Image from 'next/image'
 
 interface PropsI{
    acum: number;
@@ -12,7 +11,7 @@ interface PropsI{
    totalPages: number;
 }
 
-export const ProductsTable = ( { products, acum, totalPages }:PropsI ) => {
+export const ProductsTable = ( { products, totalPages }:PropsI ) => {
    
    return (
       <>
@@ -46,12 +45,13 @@ export const ProductsTable = ( { products, acum, totalPages }:PropsI ) => {
                         <tr key={`${ index }-${ product.id }-${ product.slug }`} className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                               <Link href={`/admin/product/${product.slug}`}>
-                                 <Image
-                                    src={`/products/${ product.images[0] }`} 
+                                 <ProductImage
+                                    src={ !!product.images[0] ? product.images[0].url : null } 
                                     alt={ product.slug }
                                     width={ 80 }
                                     height={ 80 }
                                  />
+                                 
                               </Link>
                            </td>
                            

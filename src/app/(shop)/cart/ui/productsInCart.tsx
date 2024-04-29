@@ -2,7 +2,7 @@
 
 import React, { useLayoutEffect, useState } from 'react'
 import Image from "next/image"
-import { Loading, QuantitySelector } from '@/components'
+import { Loading, ProductImage, QuantitySelector } from '@/components'
 import { CartProduct } from '@/interfaces'
 import { useCart } from '@/store'
 import { IoBagRemoveOutline } from 'react-icons/io5'
@@ -41,7 +41,7 @@ export const ProductsInCart = ( {}:propsI ) => {
 			{
 				!loading && cart.length > 0 && cart.map( ( p: CartProduct, index: number ) => (
 					<div key={ `${index}-${p.id}-${ p.size }`  } className="flex mb-3 fade-in">
-						<Image
+						<ProductImage
 							src={`/products/${ p.image }`}
 							priority={ true }
 							alt={ p.slug }
