@@ -31,9 +31,9 @@ interface SeedUser {
 	password:     string;
 	role:         Role;
 
-	// emailVerifed: string;
 	// imageProfile: string;
-	// status:       string;
+	emailVerifed?: Date;
+	status?:       string;
 }
 
 export const initialData: SeedData = {
@@ -42,6 +42,8 @@ export const initialData: SeedData = {
         name: "admin",
         password: bcrytpjs.hashSync( "12345" ),
         role: 'admin',
+        status: 'active',
+        emailVerifed: new Date()
     }, {
         email: "test@test.com",
         name: "test",

@@ -17,7 +17,7 @@ export const StockLabel = ( { slug }:propsI ) => {
          const aux = await getStockBySlug( slug )
          setStock( aux )      
       } )
-   }, [] )
+   }, [slug] )
 
    return (
       <>

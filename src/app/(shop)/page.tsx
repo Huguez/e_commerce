@@ -10,9 +10,6 @@ interface propsHome{
 	}
 }
 
-export const relative = 43200;
-
-
 export default  async function  Home( { searchParams }:propsHome ) {
 
 	const page = searchParams.page ?? 1

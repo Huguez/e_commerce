@@ -4,9 +4,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 
-export const ProductGridItem = ( { description, images, inStock, price, sizes, slug, tags, title, gender }:Product ) => {
+export const ProductGridItem = ( { description, images,  price, slug, title, }:Product ) => {
    
-   const [ displayImage, setDisplayImage ] = useState<string>( images[0] )
+   const aux = !!images ? images[0] : "/imgs/placeholder.jpg"
+   const aux2 = !!images ? images[1] : "/imgs/placeholder.jpg"
+   
+
+   const [ displayImage, setDisplayImage ] = useState<string>( aux as string )
 
    return (
       <div className='overflow-hidden fade-in hover:text-blue-500 shadow-md rounded-lg' >
@@ -19,8 +23,8 @@ export const ProductGridItem = ( { description, images, inStock, price, sizes, s
                width={500}
                height={500}
                priority={true}
-               onMouseOver={ () => setDisplayImage( images[1] ) } 
-               onMouseLeave={ () => setDisplayImage( images[0] ) }
+               onMouseOver={ () => setDisplayImage( aux as string ) } 
+               onMouseLeave={ () => setDisplayImage( aux2 as string ) }
             />
          </Link>
 

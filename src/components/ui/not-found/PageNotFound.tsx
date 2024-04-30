@@ -11,7 +11,7 @@ export const PageNotFound = ( { target = "Gender" }:propsI ) => {
       <div className="flex flex-col-reverse md:flex-row h-[400px]  w-full justify-center items-center align-middle">
          <div className="text-center px-5 mx-5">
             <h2 className={ monse.className + " antialiased text-9xl"}> 404 </h2>
-            <p className="font-semibold text-xl my-2"> Oops, so sorry { target } don't found </p>
+            <p className="font-semibold text-xl my-2"> Oops, so sorry { target } don&lsquo;t found </p>
             <span className=""> Get back </span>
             <Link href="/">
                Home

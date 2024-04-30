@@ -46,7 +46,7 @@ export const ProductsTable = ( { products, totalPages }:PropsI ) => {
                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                               <Link href={`/admin/product/${product.slug}`}>
                                  <ProductImage
-                                    src={ !!product.images[0] ? product.images[0].url : null } 
+                                    src={ product.images ? product.images[0] ? product.images[0].url : null : null }  
                                     alt={ product.slug }
                                     width={ 80 }
                                     height={ 80 }

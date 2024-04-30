@@ -6,16 +6,8 @@ import { Gender } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
-import { v2 as cloudinary } from 'cloudinary';
+import { upload } from "@/lib";
 
-
-const { CLOUD_NAME, CLOUD_API_KEY, CLOUD_API_SECRET, } = process.env
-      
-cloudinary.config({ 
-  cloud_name: `${ CLOUD_NAME }`, 
-  api_key:    `${ CLOUD_API_KEY }`, 
-  api_secret: `${ CLOUD_API_SECRET }` 
-});
 
 const productSchema = z.object({
    id: z.string().uuid().optional().nullable(),
@@ -121,7 +113,7 @@ const uploadImages = async ( images: File[] ) => {
             const buffer = await img.arrayBuffer()
             const b64 = Buffer.from( buffer ).toString('base64')
 
-            return cloudinary.uploader.upload( `data:${ img.type };base64,${ b64 }`, { folder: "e_commerce" } ).then( resp => resp.secure_url )   
+            return upload( `data:${ img.type };base64,${ b64 }`, { folder: "e_commerce" } ).then( resp => resp.secure_url )   
          } catch (error) {
             console.log( error );
             return null

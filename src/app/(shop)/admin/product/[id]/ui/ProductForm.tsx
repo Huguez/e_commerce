@@ -42,7 +42,7 @@ export const ProductForm = ({ product, categories }: Props) => {
    useLayoutEffect( () => {
       setLoading( false )
       watch('sizes')
-   }, [] )
+   }, [watch] )
 
    const onSizeChange = ( size: Size ) => {
       const mySizes = new Set( getValues("sizes") )
@@ -189,7 +189,7 @@ export const ProductForm = ({ product, categories }: Props) => {
                               height={ 580 }
                               className="rounded shadow-md mb-0.5"
                            />
-                           <button onClick={ () => deleteImagesProduct( Number( img.id ) , img.url ) } className="btn-danger flex sm:text-center items-center gap-2 w-full" type="button">
+                           <button onClick={ () => deleteImagesProduct( img.id, img.url ) } className="btn-danger flex sm:text-center items-center gap-2 w-full" type="button">
                               <FaTrashAlt className="" />
                               Delete
                            </button>

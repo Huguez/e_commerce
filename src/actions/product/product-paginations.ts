@@ -11,7 +11,7 @@ interface propsI{
 }
 
 
-export const getPaginationProducts = async ( { page=1, take = 12, gender }: propsI ) => {
+export const getPaginationProducts = async ( { page=1, take = 12, gender= undefined }: propsI ) => {
    try {
 
       if ( isNaN( Number( page ) )  || page < 1 ) page = 1;
@@ -62,7 +62,7 @@ export const getPaginationProducts = async ( { page=1, take = 12, gender }: prop
          totalPages: Math.ceil( totalCount / take ),
          products: products.map( product => ({
             ...product,
-            images: product.images.map( img => ({url: img.url, id: `${ img.id }`  }) )
+            images: product.images.map( img => ({url: img.url, id: img.id }) )
          }) )
       };
 

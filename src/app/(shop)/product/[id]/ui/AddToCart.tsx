@@ -25,14 +25,14 @@ export const AddToCart = ( { product  }: propsI ) => {
          return;
       }
 
-      const cartProduct :CartProduct = {
+      const cartProduct:CartProduct = {
          id: product.id,
          slug: product.slug,
          title: product.title,
          price: product.price,
          qty,
          size,
-         image: product.images[0].url,
+         image: product.images ? product.images[0].url : "/img/placeholder.jpg",
       }
 
       addProductToCart( cartProduct )

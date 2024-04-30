@@ -11,9 +11,7 @@ interface State {
    clearCart : () => void;
 }
 
-const useCartFunc = create<State>()
-
-export const useCart = useCartFunc( 
+export const useCart = create<State>()( 
    persist( ( set, get ) => ({
       cart: [],
       taxes: 0.15,
@@ -77,4 +75,3 @@ export const useCart = useCartFunc(
       name: "shopping-cart"
    } )
 )
-

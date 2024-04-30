@@ -25,7 +25,7 @@ export const getProductBySlug = async ( slug: string ) : Promise<Product | null>
 
       return {
          ...product,
-         images: product.images.map( img => ({url: img.url, id: `${ img.id }`  }) )
+         images: product.images.map( img => ({url: img.url, id: img.id  }) )
       }
 
    } catch (error) {

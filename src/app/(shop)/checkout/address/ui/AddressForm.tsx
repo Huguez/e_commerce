@@ -62,7 +62,7 @@ export const AddressForm = ( { countries, userAddressStores }:propsI ) => {
    
    useLayoutEffect( () => {
       reset( userAddressStores )
-   }, [] )
+   }, [ reset ] )
 
 
    return (
