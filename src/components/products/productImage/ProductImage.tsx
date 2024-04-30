@@ -2,16 +2,18 @@ import Image  from "next/image"
 import React from "react";
 
 interface Props {
-   src: string | null;
+   src: string | null | undefined;
    alt:  string;
    className?: React.StyleHTMLAttributes<HTMLImageElement>['className'];
    width:  number;
    height: number;
    style?: React.StyleHTMLAttributes<HTMLImageElement>['style'];
    priority?: boolean;
+   onMouseOver?: () => void;
+   onMouseLeave?: () =>void;
 }
 
-export const ProductImage = ( { style = {}, src, alt, className, width, height, priority = false }:Props ) => {
+export const ProductImage = ( { onMouseLeave, onMouseOver, style = {}, src, alt, className, width, height, priority = false }:Props ) => {
    
    const localSrc = ( src ) ? 
          src.startsWith("http") ? src :  `/products/${ src }` 
@@ -27,6 +29,8 @@ export const ProductImage = ( { style = {}, src, alt, className, width, height, 
             className={ className }
             style={ style }
             priority={ priority }
+            onMouseOver={onMouseOver}
+            onMouseLeave={onMouseLeave}
          />
       </>
    )

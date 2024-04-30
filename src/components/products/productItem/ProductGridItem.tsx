@@ -1,6 +1,6 @@
 "use client"
+import { ProductImage } from '@/components'
 import { Product } from '@/interfaces'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 
@@ -8,7 +8,6 @@ export const ProductGridItem = ( { description, images,  price, slug, title, }:P
    
    const aux = !!images ? images[0] : "/imgs/placeholder.jpg"
    const aux2 = !!images ? images[1] : "/imgs/placeholder.jpg"
-   
 
    const [ displayImage, setDisplayImage ] = useState<string>( aux as string )
 
@@ -16,8 +15,8 @@ export const ProductGridItem = ( { description, images,  price, slug, title, }:P
       <div className='overflow-hidden fade-in hover:text-blue-500 shadow-md rounded-lg' >
 
          <Link href={`/product/${ slug }`}>
-            <Image
-               src={ "/products/"+displayImage }
+            <ProductImage
+               src={ images ? images[0].url : null }
                alt={ description }
                className='w-full object-cover '
                width={500}
