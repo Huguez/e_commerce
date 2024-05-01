@@ -13,24 +13,28 @@ interface propsI {
 
 export async function generateMetadata( { params }: propsI ): Promise<Metadata> {
 	const { id:slug } = params
-
+	
 	const product = await getProductBySlug( slug )
+	
+	const prod = process.env.NODE_ENV === 'production'
+	const website = prod ? "https://e-commerce-by-huguez.vercel.app" : "http://localhost:3000"
 
 	return {
-		metadataBase: new URL('http://localhost:3000'),
+		metadataBase: new URL( website ),
 		title: product?.title ?? "Loading...",
 		description: product?.description ??  "Loading...",
 		openGraph: {
 			title: product?.title ?? "Loading...",
 			description: product?.description ??  "Loading...",
-			images: [ ...( product?.images ? product?.images.map( img => `${ "" }/products/${ img.url }` )  : [] ) ]
+			images: [ ...( product?.images ? product?.images.map( img => `/products/${ img.url }` )  : [] ) ]
 		},
 		twitter: {
 			site: 'huguez',
 			title: 'E-commerce',
 			description: product?.description ??  "Loading...",
-			images: [ ...( product?.images ? product?.images.map( img => `${ "" }/products/${ img.url }` ) : [] ) ]
-		 }
+			images: [ ...( product?.images ? product?.images.map( img => `/products/${ img.url }` ) : [] ) ]
+		},
+		
 	}
 }
 
